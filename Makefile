@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-std=c99 -Wall -Werror -Wextra
 
-all: chess.c
-	$(CC) $(CFLAGS) chess.c -o chess
+all: cchess.h cchess_console.c cchess_logic.c cchess.c
+	$(CC) $(CFLAGS) cchess_console.c cchess_logic.c cchess.c -o cchess
 clear:
-	-rm chess chess.o
+	-rm cchess cchess.o
