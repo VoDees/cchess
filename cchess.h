@@ -47,6 +47,7 @@
  * "     a       b       c       d       e       f       g       h     "
  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
 typedef enum {
