@@ -84,7 +84,7 @@ void print_chessboard()
 	       "       e       f       g       h     \n");
 }
 
-int parse_move(char *src, char *dst, int *sx, int *sy, int *dx, int *dy)
+int parse_move(char *src, char *dst, int *y_src, int *x_src, int *y_dst, int *x_dst)
 {
 	if ('a' > src[0] || src[0] > 'h' ||
 	    'a' > dst[0] || dst[0] > 'h' ||
@@ -92,12 +92,10 @@ int parse_move(char *src, char *dst, int *sx, int *sy, int *dx, int *dy)
 	    '1' > dst[1] || dst[1] > '8' )
 		return 1;
 
-	(*sy) = (int)(src[0] - 'a');
-	(*sx) = 8 - (int)(src[1] - '0');
-	(*dy) = (int)(dst[0] - 'a');
-	(*dx) = 8 - (int)(dst[1] - '0');
-
-	printf("%d %d || %d %d\n", *sx, *sy, *dx, *dy);
+	(*x_src) = (int)(src[0] - 'a');
+	(*y_src) = 8 - (int)(src[1] - '0');
+	(*x_dst) = (int)(dst[0] - 'a');
+	(*y_dst) = 8 - (int)(dst[1] - '0');
 
 	return 0;
 }

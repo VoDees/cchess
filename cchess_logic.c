@@ -80,14 +80,14 @@ struct cpiece chessboard [8][8] = {
 }
 };
 
-bool is_on_the_white_spot(int x, int y)
+bool is_on_the_white_spot(int y, int x)
 {
-	return (x + y) % 2 == 0;
+	return (y + x) % 2 == 0;
 }
 
-bool pawn_is_cm(int x_src, int y_src, int x_dst, int y_dst)
+bool pawn_is_cm(int y_src, int x_src, int y_dst, int x_dst)
 {
-	if (chessboard[x_src][y_src].iswhite) {
+	if (chessboard[y_src][x_src].iswhite) {
 		if (y_src > y_dst)
 			// pawn has to go forward (ALWAYS)
 			return false;
@@ -95,21 +95,21 @@ bool pawn_is_cm(int x_src, int y_src, int x_dst, int y_dst)
 		if (x_src == x_dst) {
 			if ( y_dst == 4 &&
 			     y_src == 6	&&
-			     chessboard[x_src][y_src - 1].type == VOID &&
-			     chessboard[x_src][y_src - 2].type == VOID )
+			     chessboard[y_src][x_src - 1].type == VOID &&
+			     chessboard[y_src][x_src - 2].type == VOID )
 			//first step by 2 boxes
 				return true;	
 			else if ( y_src - y_dst == 1 &&
-			          chessboard[x_src][y_src - 1].type == VOID )
+			          chessboard[y_src][x_src - 1].type == VOID )
 			// normal step
 				return true;
 		} else if (x_src - x_dst == 1 && 	// attack
 			   y_src - y_dst == 1 &&
-	   	   	   chessboard[x_dst][y_dst].type != VOID) {
+	   	   	   chessboard[y_dst][x_dst].type != VOID) {
 			return true;
 		} else if (x_src - x_dst == -1 &&	// attack
 			   y_src - y_dst == 1 &&
-			   chessboard[x_dst][y_dst].type != VOID) {
+			   chessboard[y_dst][x_dst].type != VOID) {
 			return true;
 		}
 	} else {
@@ -120,21 +120,21 @@ bool pawn_is_cm(int x_src, int y_src, int x_dst, int y_dst)
 		if (x_src == x_dst) {
 			if ( y_dst == 1 &&
 			     y_src == 3	&&
-			     chessboard[x_src][y_src + 1].type == VOID &&
-			     chessboard[x_src][y_src + 2].type == VOID )
+			     chessboard[y_src][x_src + 1].type == VOID &&
+			     chessboard[y_src][x_src + 2].type == VOID )
 			//first step by 2 boxes
 				return true;	
 			else if ( y_src - y_dst == -1 &&
-			          chessboard[x_src][y_src + 1].type == VOID )
+			          chessboard[y_src][x_src + 1].type == VOID )
 			// normal step
 				return true;
 		} else if (x_src - x_dst == 1 && 	// attack
 			   y_src - y_dst == -1 &&
-	   	   	   chessboard[x_dst][y_dst].type != VOID) {
+	   	   	   chessboard[y_dst][x_dst].type != VOID) {
 			return true;
 		} else if (x_src - x_dst == -1 &&	// attack
 			   y_src - y_dst == -1 &&
-			   chessboard[x_dst][y_dst].type != VOID) {
+			   chessboard[y_dst][x_dst].type != VOID) {
 			return true;
 		}
 	}
@@ -142,48 +142,48 @@ bool pawn_is_cm(int x_src, int y_src, int x_dst, int y_dst)
 	return false;
 }
 
-bool rook_is_cm(int x_src, int y_src, int x_dst, int y_dst)
+bool rook_is_cm(int y_src, int x_src, int y_dst, int x_dst)
 {
 	return ((x_src + y_src + x_dst + y_dst) << 31) >> 31;
 }
 
-bool knight_is_cm(int x_src, int y_src, int x_dst, int y_dst)
+bool knight_is_cm(int y_src, int x_src, int y_dst, int x_dst)
 {
 	return ((x_src + y_src + x_dst + y_dst) << 31) >> 31;
 }
 
-bool bishop_is_cm(int x_src, int y_src, int x_dst, int y_dst)
+bool bishop_is_cm(int y_src, int x_src, int y_dst, int x_dst)
 {
 	return ((x_src + y_src + x_dst + y_dst) << 31) >> 31;
 }
 
-bool queen_is_cm(int x_src, int y_src, int x_dst, int y_dst)
+bool queen_is_cm(int y_src, int x_src, int y_dst, int x_dst)
 {
 	return ((x_src + y_src + x_dst + y_dst) << 31) >> 31;
 }
 
-bool king_is_cm(int x_src, int y_src, int x_dst, int y_dst)
+bool king_is_cm(int y_src, int x_src, int y_dst, int x_dst)
 {
 	return ((x_src + y_src + x_dst + y_dst) << 31) >> 31;
 }
 
-bool is_correct_move(int x_src, int y_src, int x_dst, int y_dst)
+bool is_correct_move(int y_src, int x_src, int y_dst, int x_dst)
 {
-	switch (chessboard[x_src][y_src].type) {
+	switch (chessboard[y_src][x_src].type) {
 		case VOID:
 			return false;
 		case PAWN:
-			return pawn_is_cm(x_src, y_src, x_dst, y_dst);
+			return pawn_is_cm(y_src, x_src, y_dst, x_dst);
 		case ROOK:
-			return rook_is_cm(x_src, y_src, x_dst, y_dst);
+			return rook_is_cm(y_src, x_src, y_dst, x_dst);
 		case KNIGHT:
-			return knight_is_cm(x_src, y_src, x_dst, y_dst);
+			return knight_is_cm(y_src, x_src, y_dst, x_dst);
 		case BISHOP:
-			return bishop_is_cm(x_src, y_src, x_dst, y_dst);
+			return bishop_is_cm(y_src, x_src, y_dst, x_dst);
 		case QUEEN:
-			return queen_is_cm(x_src, y_src, x_dst, y_dst);
+			return queen_is_cm(y_src, x_src, y_dst, x_dst);
 		case KING:
-			return king_is_cm(x_src, y_src, x_dst, y_dst);
+			return king_is_cm(y_src, x_src, y_dst, x_dst);
 		default:
 			fprintf(stderr, "WHOOPSY.. something went wrong xd\n");
 			return false;
@@ -193,38 +193,37 @@ bool is_correct_move(int x_src, int y_src, int x_dst, int y_dst)
 }
 
 
-int move_cpiece(int x_src, int y_src, int x_dst, int y_dst)
+int move_cpiece(int y_src, int x_src, int y_dst, int x_dst)
 {
+//	if( !is_correct_move(y_src, x_src, y_dst, x_dst))
+//		return 1;
 
-	if( !is_correct_move(x_src, y_src, x_dst, y_dst))
-		return 2;
-
-	chessboard[x_dst][y_dst] = chessboard[x_src][y_src];
+	chessboard[y_dst][x_dst] = chessboard[y_src][x_src];
 	
-	chessboard[x_src][y_src].type = VOID;
-	chessboard[x_src][y_src].iswhite = 0;
+	chessboard[y_src][x_src].type = VOID;
+	chessboard[y_src][x_src].iswhite = 0;
 
-	if (is_on_the_white_spot(x_src, y_src) && 
-	    !is_on_the_white_spot(x_dst, y_dst) ) {
+	if (is_on_the_white_spot(y_src, x_src) && 
+	    !is_on_the_white_spot(y_dst, x_dst) ) {
 
-		chessboard[x_dst][y_dst].ap_index += 1; 
-		chessboard[x_src][y_src].ap_index = 0;
+		chessboard[y_dst][x_dst].ap_index += 1; 
+		chessboard[y_src][x_src].ap_index = 0;
 
-	} else if (!is_on_the_white_spot(x_src, y_src) && 
-	    	   is_on_the_white_spot(x_dst, y_dst) ) {
+	} else if (!is_on_the_white_spot(y_src, x_src) && 
+	    	   is_on_the_white_spot(y_dst, x_dst) ) {
 
-		chessboard[x_dst][y_dst].ap_index -= 1; 
-		chessboard[x_src][y_src].ap_index = 1;
+		chessboard[y_dst][x_dst].ap_index -= 1; 
+		chessboard[y_src][x_src].ap_index = 1;
 
-	} else if (!is_on_the_white_spot(x_src, y_src) && 
-	    	   !is_on_the_white_spot(x_dst, y_dst) ) {
+	} else if (!is_on_the_white_spot(y_src, x_src) && 
+	    	   !is_on_the_white_spot(y_dst, x_dst) ) {
 
-		chessboard[x_src][y_src].ap_index = 1;
+		chessboard[y_src][x_src].ap_index = 1;
 
-	} else if (is_on_the_white_spot(x_src, y_src) && 
-	    	   is_on_the_white_spot(x_dst, y_dst) ) {
+	} else if (is_on_the_white_spot(y_src, x_src) && 
+	    	   is_on_the_white_spot(y_dst, x_dst) ) {
 
-		chessboard[x_src][y_src].ap_index = 0;
+		chessboard[y_src][x_src].ap_index = 0;
 
 	}
 	return 0;

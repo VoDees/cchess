@@ -7,7 +7,7 @@
 
 int main()
 {
-	int sx, sy, dx, dy;
+	int y_src, x_src, y_dst, x_dst;
 	char src[2] = {0};
 	char dst[2] = {0};
 	
@@ -15,12 +15,12 @@ int main()
 	while (true) {
 		scanf("%2s", src);
 		scanf("%2s", dst);
-		if (parse_move(src, dst, &sx, &sy, &dx, &dy)) {
+		if (parse_move(src, dst, &y_src, &x_src, &y_dst, &x_dst)) {
 			fprintf(stderr, "\nSpatnej format sefe!"
 				"dej si repete..\n");
 			continue;		
 		}
-		if (move_cpiece(sx, sy, dx, dy)) {
+		if (move_cpiece(y_src, x_src, y_dst, x_dst)) {
 			fprintf(stderr, "\nZapsal si to nahovno!"
 				" Zkus to znova a dej do toho srdicko :)\n");
 			continue;

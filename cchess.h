@@ -72,12 +72,12 @@ extern struct cpiece chessboard[8][8];
 //	console functions
 void print_chessboard();
 
-int parse_move(char *src, char *dst, int *sx, int *sy, int *dx, int *dy);
+int parse_move(char *src, char *dst, int *y_src, int *x_src, int *y_dst, int *x_dst);
 
 //////////////////////////////////////////////////////////////////////////
 //	chess logic functions
-bool is_on_the_white_spot(int x, int y);
+bool is_on_the_white_spot(int y, int x);
 
-int move_cpiece(int x_src, int y_src, int x_dst, int y_dst);
+int move_cpiece(int y_src, int x_src, int y_dst, int x_dst);
 
 
