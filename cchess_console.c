@@ -86,12 +86,12 @@ void print_chessboard()
 
 int parse_move(char *src, char *dst, int *sx, int *sy, int *dx, int *dy)
 {
-	if ( !(( 'a'	<= src[0] || src[0] <=	'h') ||
-	       ( 'a'	<= dst[0] || dst[0] <=	'h') ||
-	       (  1	<= src[1] || src[1] <=	 8 ) ||
-	       (  1	<= dst[1] || dst[1] <=	 8 )) ) {
+	if ('a' > src[0] || src[0] > 'h' ||
+	    'a' > dst[0] || dst[0] > 'h' ||
+	    '1' > src[1] || src[1] > '8' ||
+	    '1' > dst[1] || dst[1] > '8' )
 		return 1;
-	}
+
 	(*sy) = (int)(src[0] - 'a');
 	(*sx) = 8 - (int)(src[1] - '0');
 	(*dy) = (int)(dst[0] - 'a');

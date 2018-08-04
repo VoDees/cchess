@@ -85,8 +85,6 @@ bool is_on_the_white_spot(int x, int y)
 	return (x + y) % 2 == 0;
 }
 
-
-
 bool pawn_is_cm(int x_src, int y_src, int x_dst, int y_dst)
 {
 	if (chessboard[x_src][y_src].iswhite) {
@@ -197,11 +195,6 @@ bool is_correct_move(int x_src, int y_src, int x_dst, int y_dst)
 
 int move_cpiece(int x_src, int y_src, int x_dst, int y_dst)
 {
-	if ( (0 > x_src || 7 < x_src) ||
-	     (0 > x_dst || 7 < x_dst) ||
-	     (0 > y_src || 7 < y_src) ||
-	     (0 > y_dst || 7 < y_dst) ) 
-		return 1;
 
 	if( !is_correct_move(x_src, y_src, x_dst, y_dst))
 		return 2;
