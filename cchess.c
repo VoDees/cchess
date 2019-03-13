@@ -13,12 +13,12 @@ int main()
 	bool turn = true;
 	
 	while (true) {
-		if (check_mate(turn)) {
+/*		if (check_mate(turn)) {
 			printf("MAT\n");
 			return 0;
-		}
-	turn = !turn;
-		
+		} */
+		turn = !turn;
+
 		system("clear");
 		
 		print_chessboard();
@@ -28,7 +28,7 @@ int main()
 		printf("\nNa: ");
 		scanf("%4s", dst);
 		if (parse_move(src, dst, &y_src, &x_src, &y_dst, &x_dst)) {
-			fprintf(stderr, "\nSpatnej format sefe!"
+			 fprintf(stderr, "\nSpatnej format sefe!"
 				"dej si repete..\n");
 			continue;	
 		}
