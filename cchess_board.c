@@ -90,12 +90,13 @@ bool is_ally(int y0, int x0, int y1, int x1)
 	return chessboard[y0][x0].iswhite == chessboard[y1][x1].iswhite;
 }
 
-int move_cpiece(int y_src, int x_src, int y_dst, int x_dst)
+int move_cpiece(int y_src, int x_src, int y_dst, int x_dst, bool turn)
 {
 	if( !is_correct_move(y_src, x_src, y_dst, x_dst))
 		return 1;
 
-//	if (check() && !check_prevented())
+	printf("%X", turn);
+//	if (check(turn) && !check_prevented(y_dst, x_dst, turn))
 //		return 2;
 
 //	if (wrong_players_turn(y_src, x_src))

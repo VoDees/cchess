@@ -85,7 +85,7 @@ int parse_move(char *src, char *dst, int *y_src, int *x_src, int *y_dst,
 
 bool is_on_the_white_spot(int y, int x);
 
-int move_cpiece(int y_src, int x_src, int y_dst, int x_dst);
+int move_cpiece(int y_src, int x_src, int y_dst, int x_dst, bool turn);
 
 bool is_ally(int y0, int x0, int y1, int x1);
 
@@ -106,4 +106,13 @@ bool king_is_cm(int y_src, int x_src, int y_dst, int x_dst);
 
 bool is_correct_move(int y_src, int x_src, int y_dst, int x_dst);
 
-// TODO
+//////////////////////////////////////////////////////////////////////////
+//	check functions
+
+bool check(bool king_iswhite);
+
+bool check_mate(bool king_iswhite);
+
+void can_reach(int y, int x, bool (*can_be_reached)[8]);
+
+bool check_prevented(int king_y, int king_x, bool king_iswhite);

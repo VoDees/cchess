@@ -10,15 +10,19 @@ int main()
 	int y_src, x_src, y_dst, x_dst;
 	char src[4] = {0};
 	char dst[4] = {0};
-//	char mate_msg[20] = {0};
+	bool turn = true;
 	
-	system("clear");
-	print_chessboard();
 	while (true) {
-//		if (check_mate(mate_msg)) {
-//			printf("%s", mate_msg);
-//			return 0;
-//		}
+		if (check_mate(turn)) {
+			printf("MAT\n");
+			return 0;
+		}
+	turn = !turn;
+		
+		system("clear");
+		
+		print_chessboard();
+		
 		printf("Pohyb figurkou z: ");
 		scanf("%4s", src);
 		printf("\nNa: ");
@@ -28,13 +32,12 @@ int main()
 				"dej si repete..\n");
 			continue;	
 		}
-		if (move_cpiece(y_src, x_src, y_dst, x_dst)) {
+		
+		if (move_cpiece(y_src, x_src, y_dst, x_dst, turn)) {
 			fprintf(stderr, "\nZapsal si to nahovno!"
 				" Zkus to znova a dej do toho srdicko :)\n");
 			continue;
 		}
-		system("clear");
-		print_chessboard();
 	}
 
 	return 0;
